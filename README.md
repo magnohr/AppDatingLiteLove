@@ -53,7 +53,7 @@ boas práticas na construção de UI
 <img width="242" height="508" alt="image" src="https://github.com/user-attachments/assets/299a0788-58ee-4691-a380-99020370fd4c" />
 
 ### Perfil
-<img width="250" height="507" alt="image" src="https://github.com/user-attachments/assets/d1c4e89c-ad75-499e-3c8-b94b8a0f88b4" />
+<img width="250" height="507" alt="image" src="https://github.com/user-attachments/assets/d1c4e89c-ad75-499e-b3c8-b94b8a0f88b4" />
 
 ### Configurações
 <img width="234" height="496" alt="image" src="https://github.com/user-attachments/assets/2c79449b-da98-455b-be59-f0b3b1eec07f" />
