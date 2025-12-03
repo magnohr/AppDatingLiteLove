@@ -35,6 +35,11 @@ layout responsivo
 
 boas práticas na construção de UI
 
+Video:
+
+[🎬 Veja a demo do app (vídeo)](https://drive.google.com/file/d/1KZGl902mEILV0WXNTtlWZBB8X65TM65P/view?usp=sharing)
+
+
 ## 📸 Screenshots
 
 ### Splash
