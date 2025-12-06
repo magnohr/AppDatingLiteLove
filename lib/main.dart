@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+
 import 'package:tre/features/mensagens/pages/widgets/app_bar.dart';
 import 'features/mensagens/pages/mensagens_page.dart';
+import 'firebase_options.dart';
 
 import 'features/mensagens/pages/widgets/barra_pesquisa.dart';
 import 'features/mensagens/pages/widgets/chat_item.dart';
@@ -19,13 +22,16 @@ import 'features/views/auth/register_screen.dart';
 import 'features/views/auth/reset_password/newPassword.dart';
 import 'features/views/auth/reset_password/reset.dart';
 import 'features/views/auth/reset_password/verification.dart';
-
 import 'features/views/splash/splash_screen.dart';
 
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-void main() {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
-
 }
 
 class MyApp extends StatelessWidget {
@@ -37,10 +43,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Tre App',
 
-      // Rota inicial
       initialRoute: '/',
 
-      // Rotas do app
       routes: {
         '/': (context) => const SplashScreen(),
         '/register': (context) => const RegisterScreen(),

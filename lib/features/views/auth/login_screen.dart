@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-
-import '../../../core/theme/app_colors.dart';
-import 'contoroller_register/register_controller.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tre/core/theme/app_colors.dart';
+import 'contoroller_register/login_controller.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,13 +12,15 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  //instancia
-  final controller = RegisterController();
+  final controller = LoginController();
 
   @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () async {
+      await controller.loadSavedData();
+      setState(() {});
+    });
   }
 
   @override
@@ -32,9 +32,10 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
               // ------------------------------ Botão Voltar ------------------------------
               InkWell(
-                onTap: () => Navigator.pop(context),
+                onTap: () => Navigator.pushNamed(context, "/register"),
                 child: SvgPicture.asset(
                   'assets/images/seta_esquerda.svg',
                   width: 30,
@@ -72,8 +73,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 20,
                       ),
                     ),
-                    prefixIconConstraints:
-                    const BoxConstraints(minWidth: 40, minHeight: 20),
+                    prefixIconConstraints: const BoxConstraints(
+                      minWidth: 40,
+                      minHeight: 20,
+                    ),
                     labelText: 'Seu email',
                     labelStyle: TextStyle(color: AppColors.grayMedium),
                     border: OutlineInputBorder(
@@ -107,15 +110,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 20,
                       ),
                     ),
-                    prefixIconConstraints:
-                    const BoxConstraints(minWidth: 40, minHeight: 20),
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.only(right: 10),
-                      child: SvgPicture.asset(
-                        'assets/images/hide_icon.svg',
-                        width: 20,
-                        height: 20,
-                      ),
+                    prefixIconConstraints: const BoxConstraints(
+                      minWidth: 40,
+                      minHeight: 20,
                     ),
                     labelText: 'Senha',
                     labelStyle: TextStyle(color: AppColors.grayMedium),
@@ -132,6 +129,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
               const SizedBox(height: 16),
 
+              // ------------------------------ Lembrar login ------------------------------
+
+              const SizedBox(height: 16),
+
               // ------------------------------ Botão Logar ------------------------------
               SizedBox(
                 width: 355,
@@ -144,11 +145,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     elevation: 2,
                   ),
-                  onPressed: () {
-                    if (controller.isValid()) {
-                      print('clicado');
+                  onPressed: () async {
+                    if (!controller.isValid()) {
+                      print("Preencha todos os campos");
+                      return;
+                    }
+
+                    final error = await controller.login();
+
+                    if (error == null) {
+                      Navigator.pushReplacementNamed(
+                          context, '/NavigationBar');
                     } else {
-                      print('Preencha todos os campos ');
+                      print(error);
                     }
                   },
                   child: const Text(
@@ -169,18 +178,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   TextButton(
-                    onPressed: () {
-                      print('Usuário esqueceu a senha');
-                      Navigator.pushNamed(context, '/recover');
-                    },
-                    child: GestureDetector(
-                      onTap: () => Navigator.pushReplacementNamed(context, '/reset'),
-                      child: const Text(
-                        'Esqueci a senha',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
-                        ),
+                    onPressed: () =>
+                        Navigator.pushNamed(context, '/reset'),
+                    child: const Text(
+                      'Esqueci a senha',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
@@ -189,28 +193,23 @@ class _LoginScreenState extends State<LoginScreen> {
 
               const SizedBox(height: 20),
 
-              // ------------------------------ Linha + "Continue com" ------------------------------
+              // ------------------------------ Divisor ------------------------------
               Row(
                 children: [
                   Expanded(
                     child: Divider(
                       color: Colors.grey.shade400,
                       thickness: 1,
-                      endIndent: 10,
                     ),
                   ),
-                  const Text(
-                    'Continue com',
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontWeight: FontWeight.w500,
-                    ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Text('Continue com'),
                   ),
                   Expanded(
                     child: Divider(
                       color: Colors.grey.shade400,
                       thickness: 1,
-                      indent: 10,
                     ),
                   ),
                 ],
@@ -218,39 +217,37 @@ class _LoginScreenState extends State<LoginScreen> {
 
               const SizedBox(height: 20),
 
-              // ------------------------------ Ícones de Login Social ------------------------------
+              // ------------------------------ Social login ------------------------------
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    'assets/images/face_image.png',
-                    width: 40,
-                    height: 40,
-                  ),
+                  Image.asset('assets/images/face_image.png', width: 40),
                   const SizedBox(width: 25),
-                  Image.asset(
-                    'assets/images/google_image.png',
-                    width: 40,
-                    height: 40,
-                  ),
+                  Image.asset('assets/images/google_image.png', width: 40),
                 ],
               ),
 
               const SizedBox(height: 24),
 
-              // ------------------------------ "Already have an account?" ------------------------------
+              // ------------------------------ Registro ------------------------------
               Center(
                 child: RichText(
-                  text: const TextSpan(
-                    style: TextStyle(color: Colors.black87, fontSize: 14),
+                  text: TextSpan(
+                    style:
+                    const TextStyle(color: Colors.black87, fontSize: 14),
                     children: [
-                      TextSpan(text: "Already have an account? "),
+                      const TextSpan(text: "Don't have an account? "),
                       TextSpan(
-                        text: "Log in",
-                        style: TextStyle(
+                        text: "Register",
+                        style: const TextStyle(
                           color: Color(0xFFFF5A79),
                           fontWeight: FontWeight.bold,
                         ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.pushReplacementNamed(
+                                context, '/register');
+                          },
                       ),
                     ],
                   ),
@@ -259,7 +256,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
               const SizedBox(height: 16),
 
-              // ------------------------------ Linha inferior decorativa ------------------------------
+              // ------------------------------ Linha inferior ------------------------------
               Center(
                 child: Container(
                   width: 120,

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "265907686144",
+    "project_id": "predating-a2742",
+    "storage_bucket": "predating-a2742.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:265907686144:android:5a84ad63766d76ca8f41e5",
+        "android_client_info": {
+          "package_name": "com.example.tre"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuEHumu6rn13NIIOIEe5-wCcLH4m63JbE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

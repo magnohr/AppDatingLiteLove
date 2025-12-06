@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 
 class SuccessDialog {
-  static void show(BuildContext context, String title, String message) {
-    showDialog(
+  static Future<void> show(
+      BuildContext context,
+      String title,
+      String message,
+      String route,
+      ) async {
+    await showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (BuildContext context) {
+      builder: (BuildContext innerContext) {
         return Dialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
@@ -50,8 +55,11 @@ class SuccessDialog {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.pop(context);
-                    Navigator.pushReplacementNamed(context, '/login');
+                    Navigator.of(innerContext, rootNavigator: true).pop();
+
+                    Future.delayed(const Duration(milliseconds: 150), () {
+                      Navigator.pushReplacementNamed(context, route);
+                    });
                   },
                   child: const Text(
                     'Continue',

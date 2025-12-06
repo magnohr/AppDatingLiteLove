@@ -20,7 +20,7 @@ class DiscoverView extends StatelessWidget {
         
             SizedBox(
               height: 60,
-              child: discoverHeader(),   // SUA CLASSE
+              child: discoverHeader(context),   // SUA CLASSE
             ),
         
             const SizedBox(height: 10),

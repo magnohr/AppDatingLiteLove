@@ -9,10 +9,29 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
   cupertino_icons: ^1.0.8
   flutter_svg: ^2.0.10+1
   flutter_datetime_picker_plus: ^2.1.0
   shared_preferences: ^2.3.2
+  http: ^1.2.0
+
+  # ---------------------------
+  # 🔥 FIREBASE PACKAGES
+  # ---------------------------
+
+  # Pacote principal do Firebase — obrigatório para inicializar o Firebase
+  firebase_core: ^4.2.1
+
+  # Autenticação (login/cadastro)
+  firebase_auth: ^6.1.2
+
+  # Firebase Storage — enviar/baixar arquivos (imagens)
+  firebase_storage: ^13.0.4
+
+  # Firestore — banco de dados em tempo real
+  cloud_firestore: ^6.1.0
+
 
 dev_dependencies:
   flutter_test:
@@ -25,5 +44,3 @@ flutter:
   assets:
     - assets/images/
     - assets/images/perfil_foto.jpg
-
-
